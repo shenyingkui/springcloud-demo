@@ -2,6 +2,7 @@ package com.example.eurekacustomer;
 
 import com.example.fegin.HouseRemoteClient;
 import com.netflix.hystrix.HystrixInvokableInfo;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.ribbon.hystrix.FallbackHandler;
@@ -27,8 +28,6 @@ public class ClientServerController {
     }
 
     @GetMapping("/callHello4")
-    @HystrixCommand(fallbackMethod = "defaultCallHello",
-    commandProperties = {@HystrixProperty(name="execution.isolation.strategy",value = "THREAD")})
     public String callHello4(){
         System.out.println("callhello4");
         return houseRemoteClient.hello();
